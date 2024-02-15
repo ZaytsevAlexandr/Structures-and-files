@@ -35,7 +35,7 @@ void cat() { // разноцветная кошка
     cout << "_________$$$__$$$$_$$" << endl;
 }
 
-string MainMenu(Sportsmen data, bool tag, bool firstTime) {
+string MainMenu(Sportsmen& data, bool tag, bool firstTime) {
 
     // SetConsoleCP(1251); // Изменение кодировки для корректной записи русских символов в файл
 
@@ -89,13 +89,13 @@ string MainMenu(Sportsmen data, bool tag, bool firstTime) {
     return mode;
 }
 
-void ThrowStr(Sportsmen data, unsigned int number) {
+void ThrowStr(Sportsmen& data, unsigned int number) {
     //	cout << "Имя               Возраст               Рост               Вес             Вид спорта          Спортивное звание" << endl;
     cout << data.name[number] << " " << data.age[number] << " лет " << data.height[number] << " см "
         << data.weight[number] << " кг " << data.sport[number] << " " << data.sportRank[number] << endl;
 }
 
-void AddStr(Sportsmen data, bool typeEnter) // добавить запись
+void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
 {
     cout << "Сейчас вы находитесь в режиме добавления данных в новую строку." << endl;
     cout << "Пожалуйста, будьте внимательнее. Данные необходимо ввести на русском языке для корректной работы." << endl;
@@ -197,7 +197,7 @@ void AddStr(Sportsmen data, bool typeEnter) // добавить запись
     }
 }
 
-void Add(Sportsmen data) {
+void Add(Sportsmen& data) {
     cout << "Сейчас вы в режиме заполнения массива с нуля." << endl;
     int tag = 1;
     while (tag) {
@@ -209,8 +209,9 @@ void Add(Sportsmen data) {
     MainMenu(data, true, false);
 }
 
-void SearchStr(Sportsmen data)
+void SearchStr(Sportsmen& data)
 {
+    system("cls");
     cout << "Сейчас вы находитесь в режиме поиска данных по выбранному полю." << endl;
     cout << "Пожалуйста, выберете режим поиска:" << endl;
     cout << endl;
@@ -403,8 +404,9 @@ void SearchStr(Sportsmen data)
     }
 }
 
-void EditStr(Sportsmen data)
+void EditStr(Sportsmen& data)
 {
+    system("cls");
     cout << "Сейчас вы находитесь в режиме редактирования выбранного поля строки." << endl;
     cout << "Пожалуйста, введите номер строки, поле которой хотите отредактировать: " << endl;
     cout << "На данный момент в списке " << data.name.size() << " строк." << endl;
@@ -600,8 +602,9 @@ void EditStr(Sportsmen data)
     }
 }
 
-void ThrowData(Sportsmen data)
+void ThrowData(Sportsmen& data)
 {
+    system("cls");
     cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
     for (auto i = 0u; i < data.name.size(); i++) {
         ThrowStr(data, i);
@@ -616,16 +619,18 @@ void ThrowData(Sportsmen data)
     return;
 }
 
-void RemoveStr(Sportsmen data)
+void RemoveStr(Sportsmen& data)
 {
+    system("cls");
     cout << "Сейчас вы находитесь в режиме удаления выбранной строки." << endl;
     cout << "Пожалуйста, введите номер строки, которую хотите удалить: " << endl;
     cout << "Чтобы выйти из режима удаления строки введите q" << endl;
 
     cout << "На данный момент в списке " << data.name.size() << " строк." << endl;
 
-    char numberTemp;
+
     while (true) {
+        char numberTemp;
         cin >> numberTemp;
 
         if (numberTemp == 'q') {
