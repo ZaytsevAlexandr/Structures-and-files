@@ -33,7 +33,8 @@ void cat() { // разноцветная кошка
     cout << "__________$$$_$$$$$_$$" << endl;
     SetConsoleTextAttribute(hConsole, ++color);
     cout << "_________$$$__$$$$_$$" << endl;
-}
+} 
+// Функция вызова разноцветной кошки на экран.  
 
 string MainMenu(Sportsmen& data, bool tag, bool firstTime) {
 
@@ -88,15 +89,18 @@ string MainMenu(Sportsmen& data, bool tag, bool firstTime) {
 
     return mode;
 }
+// Функция вызова главного меню.
 
 void ThrowStr(Sportsmen& data, unsigned int number) {
     //	cout << "Имя               Возраст               Рост               Вес             Вид спорта          Спортивное звание" << endl;
     cout << data.name[number] << " " << data.age[number] << " лет " << data.height[number] << " см "
         << data.weight[number] << " кг " << data.sport[number] << " " << data.sportRank[number] << endl;
 }
+// Функция вывода строки с заданным номером на экран.
 
 void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
 {
+    system("cls");
     cout << "Сейчас вы находитесь в режиме добавления данных в новую строку." << endl;
     cout << "Пожалуйста, будьте внимательнее. Данные необходимо ввести на русском языке для корректной работы." << endl;
     cout << endl;
@@ -196,8 +200,10 @@ void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
         cout << "Новая строка успешно добавлена." << endl;
     }
 }
+// Функция добавления строки в структуру.
 
 void Add(Sportsmen& data) {
+    system("cls");
     cout << "Сейчас вы в режиме заполнения массива с нуля." << endl;
     int tag = 1;
     while (tag) {
@@ -208,6 +214,7 @@ void Add(Sportsmen& data) {
     }
     MainMenu(data, true, false);
 }
+// Функция, вызывающая функцию Add для добавления нескольких строк в структуру.
 
 void SearchStr(Sportsmen& data)
 {
@@ -215,194 +222,194 @@ void SearchStr(Sportsmen& data)
     cout << "Сейчас вы находитесь в режиме поиска данных по выбранному полю." << endl;
     cout << "Пожалуйста, выберете режим поиска:" << endl;
     cout << endl;
-
-    int mode;
-    cin >> mode;
-
     cout << "1 - поиск по имени" << endl;
     cout << "2 - поиск по возрасту" << endl;
     cout << "3 - поиск по росту" << endl;
     cout << "4 - поиск по весу" << endl;
     cout << "5 - поиск по виду спорта" << endl;
     cout << "6 - поиск по спортивному званию" << endl;
-    cout << "7 - отменить поиск" << endl;
+    cout << "0 - выйти" << endl;
 
+    
     while (true) {
-        if (mode < 1 && mode > 7) {
-            cout << "Попробуйте снова." << endl;
-            cin >> mode;
+        string mode;
+        cin >> mode;
+
+        if (mode == "0") {
+            MainMenu(data, true, false);
+            break;
         }
-        else break;
-    }
 
-    if (mode == 1) {
-        cout << "Режим поиска по имени.." << endl;
-        cout << "Введитие имя:" << endl;
 
-        string entered;
-        getline(cin, entered);
 
-        bool found = false;
-        unsigned int counter = 0;
+        if (mode == "1") {
+            cout << "Режим поиска по имени.." << endl;
+            cout << "Введитие имя:" << endl;
 
-        cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
+            string entered;
+            cin.ignore();
+            getline(cin, entered);
 
-        for (auto i = 0u; i < data.name.size(); i++) {
-            if (data.name[i] == entered) {
-                ThrowStr(data, i);
-                bool found = true;
-                counter++;
+            bool found = false;
+            unsigned int counter = 0;
+
+            cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
+
+            for (auto i = 0u; i < data.name.size(); i++) {
+                if (data.name[i] == entered) {
+                    ThrowStr(data, i);
+                    found = true;
+                    counter++;
+                }
             }
-        }
 
-        if (found) {
-            cout << "Строк найдено: " << counter << endl;
-        }
-        else
-            cout << "Ничего не найдено." << endl;
-    }
+            if (found) {
+                cout << "Строк найдено: " << counter << '.' << endl << "Чтобы выйти, введите 0." << endl;
 
-    if (mode == 2) {
-        cout << "Режим поиска по возрасту.." << endl;
-        cout << "Введитие возраст:" << endl;
-
-        int entered;
-        cin >> entered;
-
-        bool found = false;
-        unsigned int counter = 0;
-
-        cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
-
-        for (auto i = 0u; i < data.age.size(); i++) {
-            if (data.age[i] == entered) {
-                ThrowStr(data, i);
-                bool found = true;
-                counter++;
             }
+            else
+                cout << "Ничего не найдено." << endl;
         }
 
-        if (found) {
-            cout << "Строк найдено: " << counter << endl;
-        }
-        else
-            cout << "Ничего не найдено." << endl;
-    }
+        if (mode == "2") {
+            cout << "Режим поиска по возрасту.." << endl;
+            cout << "Введитие возраст:" << endl;
 
-    if (mode == 3) {
-        cout << "Режим поиска по росту.." << endl;
-        cout << "Введитие рост:" << endl;
+            int entered;
+            cin >> entered;
 
-        int entered;
-        cin >> entered;
+            bool found = false;
+            unsigned int counter = 0;
 
-        bool found = false;
-        unsigned int counter = 0;
+            cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
 
-        cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
-
-        for (auto i = 0u; i < data.height.size(); i++) {
-            if (data.height[i] == entered) {
-                ThrowStr(data, i);
-                bool found = true;
-                counter++;
+            for (auto i = 0u; i < data.age.size(); i++) {
+                if (data.age[i] == entered) {
+                    ThrowStr(data, i);
+                    found = true;
+                    counter++;
+                }
             }
-        }
 
-        if (found) {
-            cout << "Строк найдено: " << counter << endl;
-        }
-        else
-            cout << "Ничего не найдено." << endl;
-    }
-
-    if (mode == 4) {
-        cout << "Режим поиска по весу.." << endl;
-        cout << "Введитие вес:" << endl;
-
-        int entered;
-        cin >> entered;
-
-        bool found = false;
-        unsigned int counter = 0;
-
-        cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
-
-        for (auto i = 0u; i < data.weight.size(); i++) {
-            if (data.weight[i] == entered) {
-                ThrowStr(data, i);
-                bool found = true;
-                counter++;
+            if (found) {
+                cout << "Строк найдено: " << counter << '.' << endl << "Чтобы выйти, введите 0." << endl;
             }
+            else
+                cout << "Ничего не найдено." << endl;
         }
 
-        if (found) {
-            cout << "Строк найдено: " << counter << endl;
-        }
-        else
-            cout << "Ничего не найдено." << endl;
-    }
+        if (mode == "3") {
+            cout << "Режим поиска по росту.." << endl;
+            cout << "Введитие рост:" << endl;
 
-    if (mode == 5) {
-        cout << "Режим поиска по виду спорта.." << endl;
-        cout << "Введитие вид спорта:" << endl;
+            int entered;
+            cin >> entered;
 
-        string entered;
-        getline(cin, entered);
+            bool found = false;
+            unsigned int counter = 0;
 
-        bool found = false;
-        unsigned int counter = 0;
+            cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
 
-        cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
-
-        for (auto i = 0u; i < data.sport.size(); i++) {
-            if (data.sport[i] == entered) {
-                ThrowStr(data, i);
-                bool found = true;
-                counter++;
+            for (auto i = 0u; i < data.height.size(); i++) {
+                if (data.height[i] == entered) {
+                    ThrowStr(data, i);
+                    found = true;
+                    counter++;
+                }
             }
-        }
 
-        if (found) {
-            cout << "Строк найдено: " << counter << endl;
-        }
-        else
-            cout << "Ничего не найдено." << endl;
-    }
-
-    if (mode == 6) {
-        cout << "Режим поиска по спортивному званию.." << endl;
-        cout << "Введитие спортивное звание:" << endl;
-
-        string entered;
-        getline(cin, entered);
-
-        bool found = false;
-        unsigned int counter = 0;
-
-        cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
-
-        for (auto i = 0u; i < data.sportRank.size(); i++) {
-            if (data.sportRank[i] == entered) {
-                ThrowStr(data, i);
-                bool found = true;
-                counter++;
+            if (found) {
+                cout << "Строк найдено: " << counter << '.' << endl << "Чтобы выйти, введите 0." << endl;
             }
+            else
+                cout << "Ничего не найдено." << endl;
         }
 
-        if (found) {
-            cout << "Строк найдено: " << counter << endl;
-        }
-        else
-            cout << "Ничего не найдено." << endl;
-    }
+        if (mode == "4") {
+            cout << "Режим поиска по весу.." << endl;
+            cout << "Введитие вес:" << endl;
 
-    if (mode == 7) {
-        cout << "Выход из режима поиска через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+            int entered;
+            cin >> entered;
+
+            bool found = false;
+            unsigned int counter = 0;
+
+            cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
+
+            for (auto i = 0u; i < data.weight.size(); i++) {
+                if (data.weight[i] == entered) {
+                    ThrowStr(data, i);
+                    found = true;
+                    counter++;
+                }
+            }
+
+            if (found) {
+                cout << "Строк найдено: " << counter << '.' << endl << "Чтобы выйти, введите 0." << endl;
+            }
+            else
+                cout << "Ничего не найдено." << endl;
+        }
+
+        if (mode == "5") {
+            cout << "Режим поиска по виду спорта.." << endl;
+            cout << "Введитие вид спорта:" << endl;
+
+            string entered;
+            cin.ignore();
+            getline(cin, entered);
+
+            bool found = false;
+            unsigned int counter = 0;
+
+            cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
+
+            for (auto i = 0u; i < data.sport.size(); i++) {
+                if (data.sport[i] == entered) {
+                    ThrowStr(data, i);
+                    found = true;
+                    counter++;
+                }
+            }
+
+            if (found) {
+                cout << "Строк найдено: " << counter << '.' << endl << "Чтобы выйти, введите 0." << endl;
+            }
+            else
+                cout << "Ничего не найдено." << endl;
+        }
+
+        if (mode == "6") {
+            cout << "Режим поиска по спортивному званию.." << endl;
+            cout << "Введитие спортивное звание:" << endl;
+
+            string entered;
+            cin.ignore();
+            getline(cin, entered);
+
+            bool found = false;
+            unsigned int counter = 0;
+
+            cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
+
+            for (auto i = 0u; i < data.sportRank.size(); i++) {
+                if (data.sportRank[i] == entered) {
+                    ThrowStr(data, i);
+                    found = true;
+                    counter++;
+                }
+            }
+
+            if (found) {
+                cout << "Строк найдено: " << counter << '.' << endl << "Чтобы выйти, введите 0." << endl;
+            }
+            else
+                cout << "Ничего не найдено." << endl;
+        }
     }
 }
+// Функция поиска строки по заданному полю
 
 void EditStr(Sportsmen& data)
 {
@@ -426,7 +433,6 @@ void EditStr(Sportsmen& data)
     cout << endl;
 
     int mode;
-    cin >> mode;
 
     cout << "1 - редактирование имени" << endl;
     cout << "2 - редактирование возраста" << endl;
@@ -446,12 +452,13 @@ void EditStr(Sportsmen& data)
     }
 
     if (mode == 1) {
-        int tag = 0;
-        while (!tag) {
+        string tag = 0;
+        bool fancy = true;
+        while (fancy) {
             cout << "Введите новое имя.." << endl;
             string temp;
             cin >> temp;
-            while (!temp.empty()) {
+            while (temp == "") {
                 cout << "Попробуйте заново." << endl;
                 cin >> temp;
             }
@@ -459,10 +466,13 @@ void EditStr(Sportsmen& data)
             cout << "Вот как выглядит отредактированная строка сейчас: " << endl;
             ThrowStr(data, number);
             cout << endl << "Чтобы подтвердить нажмите 1, чтобы отредактировать строку заново введите 0." << endl;
-            while (!(tag == 1) && !(tag == 0)) {
+            cin >> tag;
+            while (tag != "1" || tag != "0") {
                 cout << "Попробуйте снова." << endl;
                 cin >> tag;
             }
+            if (tag == "1")
+                fancy = false;
         }
 
         cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
@@ -601,6 +611,7 @@ void EditStr(Sportsmen& data)
         MainMenu(data, true, false);
     }
 }
+// Функция редактирования заданного поля строки
 
 void ThrowData(Sportsmen& data)
 {
@@ -618,6 +629,7 @@ void ThrowData(Sportsmen& data)
     MainMenu(data, true, false);
     return;
 }
+// Функция вывода всех строк на экран
 
 void RemoveStr(Sportsmen& data)
 {
@@ -639,29 +651,30 @@ void RemoveStr(Sportsmen& data)
             MainMenu(data, true, false);
             break;
         }
-        int number = (int)numberTemp;
+        int number = numberTemp - '0';
         while (number >= data.name.size() || number < 0) {
             cout << "Попробуйте снова." << endl;
             cin >> number;
         }
 
-        cout << "Строка номер " << number << " :" << endl;
+        cout << "Строка номер " << number << ":" << endl;
         ThrowStr(data, number);
-        cout << "Чтобы подтвердить удаление нажмите 1. Чтобы отменить удаление и поменять номер строки введите 0." << endl;
-        int tag;
+        cout << "Чтобы подтвердить удаление введите любой символ. Чтобы отменить удаление и поменять номер строки введите N." << endl;
+        string tag;
         cin >> tag;
-        if (!tag)
+
+        if (tag == "N")
             continue;
 
-        data.name.erase(data.name.begin() + number - 1);
-        data.age.erase(data.age.begin() + number - 1);
-        data.height.erase(data.height.begin() + number - 1);
-        data.weight.erase(data.weight.begin() + number - 1);
-        data.sport.erase(data.sport.begin() + number - 1);
-        data.sportRank.erase(data.sportRank.begin() + number - 1);
+        data.name.erase(data.name.begin() + number);
+        data.age.erase(data.age.begin() + number);
+        data.height.erase(data.height.begin() + number);
+        data.weight.erase(data.weight.begin() + number);
+        data.sport.erase(data.sport.begin() + number);
+        data.sportRank.erase(data.sportRank.begin() + number);
 
         cout << endl << "Строка успешно удалена." << endl;
-        cout << "Теперь в списке " << data.name.size() << "строк" << endl;
+        cout << "Теперь в списке " << data.name.size() << " строк" << endl;
     }
 }
-
+// Функция удаления строки с заданным номером
