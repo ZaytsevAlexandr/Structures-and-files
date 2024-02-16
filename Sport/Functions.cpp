@@ -122,8 +122,22 @@ void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
 
     cout << endl << "Введите возраст (в годах): " << endl; // age
     while (true) {
-        int input;
-        cin >> input;
+        bool isNotInteger = false;
+
+        string stringInput;
+        cin >> stringInput;
+
+        for (auto i = 0u; stringInput[i]; i++) {
+            if (isdigit(stringInput[i]) == false) { 
+                isNotInteger = true;
+                break; 
+            }
+        }
+        if (isNotInteger) {
+            cout << "Ошибка ввода. Попробуйте заново." << endl;
+            continue;
+        }
+        int input = stoi(stringInput); // string to int
         if ((input <= 0) || (input > 99)) {
             cout << "Попробуйте заново." << endl;
             continue;
@@ -135,8 +149,22 @@ void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
 
     cout << endl << "Введите рост (в сантиметрах): " << endl; // height
     while (true) {
-        int input;
-        cin >> input;
+        bool count = false;
+
+        string stringInput;
+        cin >> stringInput;
+
+        for (auto i = 0u; stringInput[i]; i++) {
+            if (isdigit(stringInput[i]) == false) {
+                count = true;
+                break;
+            }
+        }
+        if (count) {
+            cout << "Ошибка ввода. Попробуйте заново." << endl;
+            continue;
+        }
+        int input = stoi(stringInput); // string to int
         if ((input <= 0) || (input > 230)) {
             cout << "Попробуйте заново." << endl;
             continue;
@@ -148,8 +176,22 @@ void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
 
     cout << endl << "Введите вес (в килограммах): " << endl; // weight
     while (true) {
-        int input;
-        cin >> input;
+        bool count = false;
+
+        string stringInput;
+        cin >> stringInput;
+
+        for (auto i = 0u; stringInput[i]; i++) {
+            if (isdigit(stringInput[i]) == false) {
+                count = true;
+                break;
+            }
+        }
+        if (count) {
+            cout << "Ошибка ввода. Попробуйте заново." << endl;
+            continue;
+        }
+        int input = stoi(stringInput); // string to int
         if ((input <= 0) || (input > 150)) {
             cout << "Попробуйте заново." << endl;
             continue;
@@ -186,18 +228,20 @@ void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
         break;
     }
     if (typeEnter) {
-        cout << "Возврат в главное меню произойдет через 5 секунд. Пожалуйста, подождите." << endl;
+        cout << "Строка успешно добавлена. Чтобы продолжить, введите любой символ." << endl;
+
+        string fTemp;
+        cin >> fTemp;
+
         //cout << data.name.size() << endl;
         //cout << data.age.size() << endl;
         //cout << data.height.size() << endl;
         //cout << data.weight.size() << endl;
         //cout << data.sport.size() << endl;
-
-        Sleep(5000);
-        MainMenu(data, true, false);
+        // MainMenu(data, true, false); !!!!!!!!!!!
     }
     else {
-        cout << "Новая строка успешно добавлена." << endl;
+        cout << "Новая строка успешно добавлена." << endl; // для использования в функции Add()
     }
 }
 // Функция добавления строки в структуру.
@@ -205,14 +249,13 @@ void AddStr(Sportsmen& data, bool typeEnter) // добавить запись
 void Add(Sportsmen& data) {
     system("cls");
     cout << "Сейчас вы в режиме заполнения массива с нуля." << endl;
-    int tag = 1;
-    while (tag) {
+    string tag = ("1");
+    while (tag != "q") {
         AddStr(data, false);
-        cout << "Чтобы ввести строку далее, введите любое число. Если вы хотите закончить - введите 0." << endl;
+        cout << "Чтобы ввести строку далее, введите любой символ. Если вы хотите закончить - введите q" << endl;
         cin >> tag;
-
     }
-    MainMenu(data, true, false);
+    // MainMenu(data, true, false); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 // Функция, вызывающая функцию Add для добавления нескольких строк в структуру.
 
@@ -228,19 +271,33 @@ void SearchStr(Sportsmen& data)
     cout << "4 - поиск по весу" << endl;
     cout << "5 - поиск по виду спорта" << endl;
     cout << "6 - поиск по спортивному званию" << endl;
-    cout << "0 - выйти" << endl;
+    cout << "q - выйти" << endl;
 
-    
     while (true) {
         string mode;
         cin >> mode;
 
-        if (mode == "0") {
-            MainMenu(data, true, false);
-            break;
+        system("cls");
+        cout << "Сейчас вы находитесь в режиме поиска данных по выбранному полю." << endl;
+        cout << "Пожалуйста, выберете режим поиска:" << endl;
+        cout << endl;
+        cout << "1 - поиск по имени" << endl;
+        cout << "2 - поиск по возрасту" << endl;
+        cout << "3 - поиск по росту" << endl;
+        cout << "4 - поиск по весу" << endl;
+        cout << "5 - поиск по виду спорта" << endl;
+        cout << "6 - поиск по спортивному званию" << endl;
+        cout << "q - выйти" << endl;
+
+        if (mode != "q" && mode != "1" && mode != "2" && mode != "3" && mode != "4" && mode != "5" && mode != "6") {
+            cout << "Такого режима не существует. Попробуйте ввести что-то другое." << endl;
+            continue;
         }
 
-
+        if (mode == "q") {
+            // MainMenu(data, true, false); 
+            break;
+        }
 
         if (mode == "1") {
             cout << "Режим поиска по имени.." << endl;
@@ -275,8 +332,32 @@ void SearchStr(Sportsmen& data)
             cout << "Режим поиска по возрасту.." << endl;
             cout << "Введитие возраст:" << endl;
 
-            int entered;
-            cin >> entered;
+            bool isInteger = false;
+            string stringInput;
+            while (!isInteger) {
+                cin >> stringInput;
+                bool SP = false;
+                for (auto i = 0u; stringInput[i]; i++) {
+                    if (isdigit(stringInput[i]) == false) {
+                        break;
+                    }
+                    isInteger = true;
+                }
+
+                if (!isInteger) {
+                    cout << "Ошибка ввода. Попробуйте заново." << endl;
+                    isInteger = false;
+                    continue;
+                }
+
+                int input = stoi(stringInput); // string to int
+                if ((input <= 0) || (input > 99)) {
+                    cout << "Попробуйте заново." << endl;
+                    isInteger = false;
+                    continue;
+                }
+            }
+            int input = stoi(stringInput); // string to int
 
             bool found = false;
             unsigned int counter = 0;
@@ -284,7 +365,7 @@ void SearchStr(Sportsmen& data)
             cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
 
             for (auto i = 0u; i < data.age.size(); i++) {
-                if (data.age[i] == entered) {
+                if (data.age[i] == input) {
                     ThrowStr(data, i);
                     found = true;
                     counter++;
@@ -302,16 +383,40 @@ void SearchStr(Sportsmen& data)
             cout << "Режим поиска по росту.." << endl;
             cout << "Введитие рост:" << endl;
 
-            int entered;
-            cin >> entered;
+            bool isInteger = false;
+            string stringInput;
+            while (!isInteger) {
+                cin >> stringInput;
+                bool SP = false;
+                for (auto i = 0u; stringInput[i]; i++) {
+                    if (isdigit(stringInput[i]) == false) {
+                        break;
+                    }
+                    isInteger = true;
+                }
 
+                if (!isInteger) {
+                    cout << "Ошибка ввода. Попробуйте заново." << endl;
+                    isInteger = false;
+                    continue;
+                }
+
+                int input = stoi(stringInput); // string to int
+                if ((input <= 0) || (input > 99)) {
+                    cout << "Попробуйте заново." << endl;
+                    isInteger = false;
+                    continue;
+                }
+            }
+            int input = stoi(stringInput); // string to int
+       
             bool found = false;
             unsigned int counter = 0;
 
             cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
 
             for (auto i = 0u; i < data.height.size(); i++) {
-                if (data.height[i] == entered) {
+                if (data.height[i] == input) {
                     ThrowStr(data, i);
                     found = true;
                     counter++;
@@ -329,8 +434,32 @@ void SearchStr(Sportsmen& data)
             cout << "Режим поиска по весу.." << endl;
             cout << "Введитие вес:" << endl;
 
-            int entered;
-            cin >> entered;
+            bool isInteger = false;
+            string stringInput;
+            while (!isInteger) {
+                cin >> stringInput;
+                bool SP = false;
+                for (auto i = 0u; stringInput[i]; i++) {
+                    if (isdigit(stringInput[i]) == false) {
+                        break;
+                    }
+                    isInteger = true;
+                }
+
+                if (!isInteger) {
+                    cout << "Ошибка ввода. Попробуйте заново." << endl;
+                    isInteger = false;
+                    continue;
+                }
+
+                int input = stoi(stringInput); // string to int
+                if ((input <= 0) || (input > 99)) {
+                    cout << "Попробуйте заново." << endl;
+                    isInteger = false;
+                    continue;
+                }
+            }
+            int input = stoi(stringInput); // string to int
 
             bool found = false;
             unsigned int counter = 0;
@@ -338,7 +467,7 @@ void SearchStr(Sportsmen& data)
             cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
 
             for (auto i = 0u; i < data.weight.size(); i++) {
-                if (data.weight[i] == entered) {
+                if (data.weight[i] == input) {
                     ThrowStr(data, i);
                     found = true;
                     counter++;
@@ -415,24 +544,47 @@ void EditStr(Sportsmen& data)
 {
     system("cls");
     cout << "Сейчас вы находитесь в режиме редактирования выбранного поля строки." << endl;
-    cout << "Пожалуйста, введите номер строки, поле которой хотите отредактировать: " << endl;
     cout << "На данный момент в списке " << data.name.size() << " строк." << endl;
+    cout << "Пожалуйста, введите номер строки, поле которой хотите отредактировать: " << endl;
 
-    int number;
-    cin >> number;
-    while (number >= data.name.size() || number < 0) {
-        cout << "Попробуйте снова." << endl;
-        cin >> number;
+
+    bool isInteger = false;
+    string stringInput;
+    while (!isInteger) {
+        cin >> stringInput;
+        bool SP = false;
+        for (auto i = 0u; stringInput[i]; i++) {
+            if (isdigit(stringInput[i]) == false) {
+                break;
+            }
+            isInteger = true;
+        }
+
+        if (!isInteger) {
+            cout << "Ошибка ввода. Попробуйте заново." << endl;
+            isInteger = false;
+            continue;
+        }
+
+        int input = stoi(stringInput); // string to int
+
+        if (input >= data.name.size() || input < 0) {
+            cout << "Попробуйте снова." << endl;
+            isInteger = false;
+            continue;
+        }
     }
+    int input = stoi(stringInput); // string to int
 
-    cout << "Сейчас вы редактируете " << number << " строку. Она приведена ниже:" << endl;
+
+    cout << "Сейчас вы редактируете " << input << " строку. Она приведена ниже:" << endl;
     cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
-    ThrowStr(data, number);
+    ThrowStr(data, input);
 
-    cout << "Пожалуйста, выберете поле для редактирования:" << endl;
+    cout << endl << "Пожалуйста, выберете поле для редактирования:" << endl;
     cout << endl;
 
-    int mode;
+    string mode;
 
     cout << "1 - редактирование имени" << endl;
     cout << "2 - редактирование возраста" << endl;
@@ -440,18 +592,18 @@ void EditStr(Sportsmen& data)
     cout << "4 - редактирование веса" << endl;
     cout << "5 - редактирование вида спорта" << endl;
     cout << "6 - редактирование спортивного звания" << endl;
-    cout << "7 - отменить редактирование" << endl;
+    cout << "q - отменить редактирование" << endl;
 
     cin >> mode;
     while (true) {
-        if (mode < 1 && mode > 7) {
+        if (mode != "1" && mode != "2" && mode != "3" && mode != "4" && mode != "5" && mode != "6" && mode != "q") {
             cout << "Попробуйте снова." << endl;
             cin >> mode;
         }
         else break;
     }
 
-    if (mode == 1) {
+    if (mode == "1") {
         string tag = 0;
         bool fancy = true;
         while (fancy) {
@@ -462,9 +614,9 @@ void EditStr(Sportsmen& data)
                 cout << "Попробуйте заново." << endl;
                 cin >> temp;
             }
-            data.name[number] = temp;
+            data.name[input] = temp;
             cout << "Вот как выглядит отредактированная строка сейчас: " << endl;
-            ThrowStr(data, number);
+            ThrowStr(data, input);
             cout << endl << "Чтобы подтвердить нажмите 1, чтобы отредактировать строку заново введите 0." << endl;
             cin >> tag;
             while (tag != "1" || tag != "0") {
@@ -474,13 +626,10 @@ void EditStr(Sportsmen& data)
             if (tag == "1")
                 fancy = false;
         }
-
-        cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+        // MainMenu(data, true, false); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
-    if (mode == 2) {
+    if (mode == "2") {
         int tag = 0;
         while (!tag) {
             cout << "Введите новый возраст.." << endl;
@@ -490,9 +639,9 @@ void EditStr(Sportsmen& data)
                 cout << "Попробуйте снова." << endl;
                 cin >> temp;
             }
-            data.age[number] = temp;
+            data.age[input] = temp;
             cout << "Вот как выглядит отредактированная строка сейчас: " << endl;
-            ThrowStr(data, number);
+            ThrowStr(data, input);
             cout << endl << "Чтобы подтвердить нажмите 1, чтобы отредактировать строку заново введите 0." << endl;
             while (!(tag == 1) && !(tag == 0)) {
                 cout << "Попробуйте снова." << endl;
@@ -500,12 +649,10 @@ void EditStr(Sportsmen& data)
             }
         }
 
-        cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+        // MainMenu(data, true, false); 
     }
 
-    if (mode == 3) {
+    if (mode == "3") {
         int tag = 0;
         while (!tag) {
             cout << "Введите новый рост.." << endl;
@@ -515,9 +662,9 @@ void EditStr(Sportsmen& data)
                 cout << "Попробуйте снова." << endl;
                 cin >> temp;
             }
-            data.height[number] = temp;
+            data.height[input] = temp;
             cout << "Вот как выглядит отредактированная строка сейчас: " << endl;
-            ThrowStr(data, number);
+            ThrowStr(data, input);
             cout << endl << "Чтобы подтвердить нажмите 1, чтобы отредактировать строку заново введите 0." << endl;
             while (!(tag == 1) && !(tag == 0)) {
                 cout << "Попробуйте снова." << endl;
@@ -525,12 +672,10 @@ void EditStr(Sportsmen& data)
             }
         }
 
-        cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+        // MainMenu(data, true, false);
     }
 
-    if (mode == 4) {
+    if (mode == "4") {
         int tag = 0;
         while (!tag) {
             cout << "Введите новый вес.." << endl;
@@ -540,9 +685,9 @@ void EditStr(Sportsmen& data)
                 cout << "Попробуйте снова." << endl;
                 cin >> temp;
             }
-            data.weight[number] = temp;
+            data.weight[input] = temp;
             cout << "Вот как выглядит отредактированная строка сейчас: " << endl;
-            ThrowStr(data, number);
+            ThrowStr(data, input);
             cout << endl << "Чтобы подтвердить нажмите 1, чтобы отредактировать строку заново введите 0." << endl;
             while (!(tag == 1) && !(tag == 0)) {
                 cout << "Попробуйте снова." << endl;
@@ -550,12 +695,10 @@ void EditStr(Sportsmen& data)
             }
         }
 
-        cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+        // MainMenu(data, true, false);
     }
 
-    if (mode == 5) {
+    if (mode == "5") {
         int tag = 0;
         while (!tag) {
             cout << "Введите новый вид спорта.." << endl;
@@ -565,9 +708,9 @@ void EditStr(Sportsmen& data)
                 cout << "Попробуйте заново." << endl;
                 cin >> temp;
             }
-            data.sport[number] = temp;
+            data.sport[input] = temp;
             cout << "Вот как выглядит отредактированная строка сейчас: " << endl;
-            ThrowStr(data, number);
+            ThrowStr(data, input);
             cout << endl << "Чтобы подтвердить нажмите 1, чтобы отредактировать строку заново введите 0." << endl;
             while (!(tag == 1) && !(tag == 0)) {
                 cout << "Попробуйте снова." << endl;
@@ -575,12 +718,10 @@ void EditStr(Sportsmen& data)
             }
         }
 
-        cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+        // MainMenu(data, true, false);
     }
 
-    if (mode == 6) {
+    if (mode == "6") {
         int tag = 0;
         while (!tag) {
             cout << "Введите новое спортивное звание.." << endl;
@@ -590,9 +731,9 @@ void EditStr(Sportsmen& data)
                 cout << "Попробуйте заново." << endl;
                 cin >> temp;
             }
-            data.sportRank[number] = temp;
+            data.sportRank[input] = temp;
             cout << "Вот как выглядит отредактированная строка сейчас: " << endl;
-            ThrowStr(data, number);
+            ThrowStr(data, input);
             cout << endl << "Чтобы подтвердить нажмите 1, чтобы отредактировать строку заново введите 0." << endl;
             while (!(tag == 1) && !(tag == 0)) {
                 cout << "Попробуйте снова." << endl;
@@ -600,15 +741,12 @@ void EditStr(Sportsmen& data)
             }
         }
 
-        cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+        // MainMenu(data, true, false);
     }
 
-    if (mode == 7) {
-        cout << "Выход из режима редактирования через 3 секунды. Пожалуйста, подождите." << endl;
-        Sleep(3000);
-        MainMenu(data, true, false);
+    if (mode == "q") {
+        return;
+        // MainMenu(data, true, false);
     }
 }
 // Функция редактирования заданного поля строки
@@ -626,8 +764,7 @@ void ThrowData(Sportsmen& data)
     string q;
     cin >> q;
     
-    MainMenu(data, true, false);
-    return;
+    // MainMenu(data, true, false);
 }
 // Функция вывода всех строк на экран
 
@@ -648,7 +785,7 @@ void RemoveStr(Sportsmen& data)
         if (numberTemp == 'q') {
             cout << "Выход в главное меню через 3 секунды. Пожалуйста, подождите." << endl;
             Sleep(3000);
-            MainMenu(data, true, false);
+            // MainMenu(data, true, false);
             break;
         }
         int number = numberTemp - '0';
