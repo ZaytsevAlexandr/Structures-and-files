@@ -1,6 +1,6 @@
 #include "Functions.h"
 
-void cat() { // разноцветная кошка
+void cat() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     int color = 0;
     SetConsoleTextAttribute(hConsole, ++color);
