@@ -84,8 +84,8 @@ string MainMenu(Sportsmen& data) {
 
 void ThrowStr(Sportsmen& data, unsigned int number) {
     //	cout << "Имя               Возраст               Рост               Вес             Вид спорта          Спортивное звание" << endl;
-    cout << data.name[number] << " " << data.age[number] << " лет " << data.height[number] << " см "
-        << data.weight[number] << " кг " << data.sport[number] << " " << data.sportRank[number] << endl;
+    cout << data.name[number] << "         " << data.age[number] << " лет         " << data.height[number] << " см         "
+        << data.weight[number] << " кг         " << data.sport[number] << "         " << data.sportRank[number] << endl;
 }
 // Функция вывода строки с заданным номером на экран.
 
@@ -304,7 +304,7 @@ void SearchStr(Sportsmen& data)
             bool found = false;
             unsigned int counter = 0;
 
-            cout << "Имя         Возраст          Рост           Вес        Вид спорта      Спортивное звание" << endl;
+            cout << "Имя         Возраст         Рост         Вес         Вид спорта         Спортивное звание" << endl;
 
             for (auto i = 0u; i < data.name.size(); i++) {
                 if (data.name[i] == entered) {
