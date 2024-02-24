@@ -1,0 +1,3 @@
+name|age|height|weight|sport|sportRank
+don|25|150|80|dsda|fdfs
+kostyan|23|23|23|sdfd|afsjiads
