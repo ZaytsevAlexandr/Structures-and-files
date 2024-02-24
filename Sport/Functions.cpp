@@ -811,19 +811,43 @@ void RemoveStr(Sportsmen& data)
 
             cout << "На данный момент в списке " << data.name.size() << " строк." << endl;
 
-            string numberTemp;
-            cin.ignore();
-            getline(cin, numberTemp, '\n');
+            bool isInteger = false;
+            string stringInput;
+            while (!isInteger) {
+                cin >> stringInput;
+                if (stringInput == "q")
+                    return;
 
+                for (char c : stringInput) {
+                    if (isdigit(c) == false) {
+                        break;
+                    }
+                    isInteger = true;
+                }
 
-            if (numberTemp == "q") {
+                if (!isInteger) {
+                    cout << "Ошибка ввода. Попробуйте заново." << endl;
+                    isInteger = false;
+                    continue;
+                }
+
+                int input = stoi(stringInput); // string to int
+
+                if (input >= data.name.size() || input < 0) {
+                    cout << "Попробуйте снова." << endl;
+                    isInteger = false;
+                    continue;
+                }
+            }
+            int number = stoi(stringInput); // string to int
+
+            if (stringInput == "q") {
                 //cout << "Выход в главное меню через 3 секунды. Пожалуйста, подождите." << endl;
                 //Sleep(3000);
                 //MainMenu(data, true, false);
                 break;
             }
 
-            int number = numberTemp[0] - '0';
             while (number >= data.name.size() || number < 0) {
                 cout << "Попробуйте снова." << endl;
                 cin >> number;
