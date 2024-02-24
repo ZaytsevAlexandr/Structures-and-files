@@ -3,13 +3,14 @@
 int main() {
     setlocale(LC_CTYPE, "rus");
 
-    const string path = "mainfile.txt"; // Задать путь файла можно только здесь. Файл единственный и с консоли не задается.
-
     Sportsmen data;
+
+    const string path = "mainfile.txt"; // Задать путь файла
+    UpdateStructureFromFile(path, data);
 
     while (true) {
         string mode;
-        mode = MainMenu(data, true, true);
+        mode = MainMenu(data);
         if (mode == "0")
             Add(data);
         if (mode == "1")
@@ -24,11 +25,11 @@ int main() {
             ThrowData(data);
         if (mode == "q") {
             cout << "Работа с программой заверешна. Всего вам доброго." << endl;
+            UpdateFileFromStructure(path, data);
             break;
         }
-
+        UpdateFileFromStructure(path, data);
     }
-
     return 1;
 }
 
