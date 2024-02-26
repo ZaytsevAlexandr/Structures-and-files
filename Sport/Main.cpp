@@ -2,7 +2,7 @@
 
 int main() {
     setlocale(LC_CTYPE, "rus");
-
+    system("chcp 1251");
     Sportsmen data;
 
     const string path = "mainfile.txt"; // Задать путь файла
@@ -32,4 +32,3 @@ int main() {
     }
     return 1;
 }
-
